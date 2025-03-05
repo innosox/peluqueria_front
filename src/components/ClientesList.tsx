@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import Menu from "./Menu";
+import { Container, Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 interface Cliente {
     id: number;
@@ -27,38 +29,41 @@ function ClientesList() {
     }, []);
 
     return (
-        <div className="container">
-            <h2>Lista de Clientes</h2>
-            <button onClick={() => navigate("/clientes/crear")}>Crear Cliente</button>
-            <div className="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Email</th>
-                            <th>Teléfono</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {clientes.map((cliente) => (
-                            <tr key={cliente.id}>
-                                <td>{cliente.id}</td>
-                                <td>{cliente.name}</td>
-                                <td>{cliente.email}</td>
-                                <td>{cliente.phone}</td>
-                                <td>
-                                    <button onClick={() => navigate(`/citas/cliente/${cliente.id}`)}>
-                                        Ver Citas
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Container maxWidth="lg">
+            <Menu />
+            <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
+                <Typography variant="h5" gutterBottom>Lista de Clientes</Typography>
+                <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={() => navigate("/clientes/crear")}>Crear Cliente</Button>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Nombre</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Teléfono</TableCell>
+                                <TableCell>Acción</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {clientes.map((cliente) => (
+                                <TableRow key={cliente.id}>
+                                    <TableCell>{cliente.id}</TableCell>
+                                    <TableCell>{cliente.name}</TableCell>
+                                    <TableCell>{cliente.email}</TableCell>
+                                    <TableCell>{cliente.phone}</TableCell>
+                                    <TableCell>
+                                        <Button variant="contained" color="secondary" onClick={() => navigate(`/citas/cliente/${cliente.id}`)}>
+                                            Ver Citas
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+        </Container>
     );
 }
 

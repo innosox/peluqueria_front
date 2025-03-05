@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../services/api";
+import { Container, Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
 
 interface Cliente {
     id: number;
@@ -46,39 +47,41 @@ function AtencionList() {
     }, []);
 
     return (
-        <div className="container">
-            <h2>Lista de Atenciones</h2>
-            <div className="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Cliente</th>
-                            <th>Servicio</th>
-                            <th>Fecha Cita</th>
-                            <th>Hora Cita</th>
-                            <th>Estado</th>
-                            <th>Detalle</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {atencions.map((atencion) => (
-                            <tr key={atencion.id}>
-                                <td>{atencion.id}</td>
-                                <td>{atencion.cita?.cliente?.name || "N/A"}</td>
-                                <td>{atencion.servicio?.name || "N/A"}</td>
-                                <td>{atencion.cita?.appointment_date || "N/A"}</td>
-                                <td>{atencion.cita?.appointment_time || "N/A"}</td>
-                                <td>{atencion.cita?.status || "N/A"}</td>
-                                <td>{atencion.detail}</td>
-                                <td>${atencion.price}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Container maxWidth="lg">
+            <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
+                <Typography variant="h5" gutterBottom>Lista de Atenciones</Typography>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Cliente</TableCell>
+                                <TableCell>Servicio</TableCell>
+                                <TableCell>Fecha Cita</TableCell>
+                                <TableCell>Hora Cita</TableCell>
+                                <TableCell>Estado</TableCell>
+                                <TableCell>Detalle</TableCell>
+                                <TableCell>Precio</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {atencions.map((atencion) => (
+                                <TableRow key={atencion.id}>
+                                    <TableCell>{atencion.id}</TableCell>
+                                    <TableCell>{atencion.cita?.cliente?.name || "N/A"}</TableCell>
+                                    <TableCell>{atencion.servicio?.name || "N/A"}</TableCell>
+                                    <TableCell>{atencion.cita?.appointment_date || "N/A"}</TableCell>
+                                    <TableCell>{atencion.cita?.appointment_time || "N/A"}</TableCell>
+                                    <TableCell>{atencion.cita?.status || "N/A"}</TableCell>
+                                    <TableCell>{atencion.detail}</TableCell>
+                                    <TableCell>${atencion.price}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+        </Container>
     );
 }
 

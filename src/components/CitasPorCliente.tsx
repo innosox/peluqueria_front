@@ -3,7 +3,8 @@ import { api } from "../services/api";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AxiosError } from "axios";
-
+import Menu from "./Menu";
+import { Container, Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 interface Cliente {
     id: number;
@@ -51,45 +52,47 @@ function CitasPorCliente() {
     }, [id, status]);
 
     return (
-        <div className="container">
-            <h2>Citas del Cliente</h2>
-            <button onClick={() => navigate(-1)} className="button-back">⬅ Volver</button>
-            <br /><br />
-            <label>
-                Filtrar por estado:
-                <select value={status} onChange={(e) => setStatus(e.target.value)}>
-                    <option value="pendiente">Pendiente</option>
-                    <option value="completada">Completada</option>
-                    <option value="cancelada">Cancelada</option>
-                </select>
-            </label>
-            <div className="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Estado</th>
-                            <th>Servicio</th>
-                            <th>Precio</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {citas.map((cita) => (
-                            <tr key={cita.id}>
-                                <td>{cita.id}</td>
-                                <td>{cita.appointment_date}</td>
-                                <td>{cita.appointment_time}</td>
-                                <td>{cita.status}</td>
-                                <td>{cita.servicio.name}</td>
-                                <td>${cita.servicio.price_total}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <Container maxWidth="lg">
+            <Menu />
+            <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
+                <Typography variant="h5" gutterBottom>Citas del Cliente</Typography>
+                <Button variant="contained" color="secondary" sx={{ mb: 2 }} onClick={() => navigate(-1)}>⬅ Volver</Button>
+                <FormControl fullWidth margin="normal">
+                    <InputLabel>Filtrar por estado</InputLabel>
+                    <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+                        <MenuItem value="pendiente">Pendiente</MenuItem>
+                        <MenuItem value="realizada">Realizada</MenuItem>
+                        <MenuItem value="cancelada">Cancelada</MenuItem>
+                    </Select>
+                </FormControl>
+                <TableContainer component={Paper}>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>ID</TableCell>
+                                <TableCell>Fecha</TableCell>
+                                <TableCell>Hora</TableCell>
+                                <TableCell>Estado</TableCell>
+                                <TableCell>Servicio</TableCell>
+                                <TableCell>Precio</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {citas.map((cita) => (
+                                <TableRow key={cita.id}>
+                                    <TableCell>{cita.id}</TableCell>
+                                    <TableCell>{cita.appointment_date}</TableCell>
+                                    <TableCell>{cita.appointment_time}</TableCell>
+                                    <TableCell>{cita.status}</TableCell>
+                                    <TableCell>{cita.servicio.name}</TableCell>
+                                    <TableCell>${cita.servicio.price_total}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </Box>
+        </Container>
     );
 }
 

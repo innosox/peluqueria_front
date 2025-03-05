@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../services/api";
 import Swal from "sweetalert2";
 import { AxiosError } from "axios";
+import Menu from "./Menu";
 
 
 function ClientesCrear() {
@@ -28,6 +29,7 @@ function ClientesCrear() {
 
     return (
         <div className="container">
+        <Menu />
         <h2>Crear Nuevo Cliente</h2>
         <form onSubmit={handleLogin}>
             <input type="text" placeholder="Nombre" value={name} onChange={(e) => setName(e.target.value)} required className="input" />

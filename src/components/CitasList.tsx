@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button, Typography, Container, Box, Paper } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Menu from "./Menu";
 
 function CitasList() {
     const [citas, setCitas] = useState([]);
@@ -21,6 +22,7 @@ function CitasList() {
 
     return (
         <Container maxWidth="lg">
+            <Menu />
             <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
                 <Typography variant="h5" gutterBottom>Lista de Citas</Typography>
                 <Button variant="contained" color="primary" sx={{ mb: 2 }} onClick={() => navigate("/citas/crear")}>Crear Cita</Button>
@@ -47,7 +49,7 @@ function CitasList() {
                                     <TableCell>{cita.appointment_time}</TableCell>
                                     <TableCell>{cita.status}</TableCell>
                                     <TableCell>
-                                        <Button variant="contained" color="secondary" onClick={() => navigate(`/atenciones/${cita.id}/${cita.service_id}`)}>Ver Atención</Button>
+                                        <Button variant="contained" color="secondary" onClick={() => navigate(`/atenciones/${cita.id}/${cita.service_id}`)}>Nueva Atención</Button>
                                     </TableCell>
                                 </TableRow>
                             ))}

@@ -3,8 +3,11 @@ import { api } from "../services/api";
 import { TextField, Button, MenuItem, Select, FormControl, InputLabel, Typography, Container, Box } from "@mui/material";
 import Swal from "sweetalert2";
 import { AxiosError } from "axios";
+import Menu from "./Menu";
+import { useNavigate } from "react-router-dom";
 
 function AgendarCita() {
+    const navigate = useNavigate();
     const [clientes, setClientes] = useState([]);
     const [servicios, setServicios] = useState([]);
     const [formData, setFormData] = useState({
@@ -41,6 +44,7 @@ function AgendarCita() {
                 title: "Cita Agendada",
                 text: "La cita se ha registrado con éxito",
             });
+            navigate("/citas");
         }catch (err: unknown) {
             const error = err as AxiosError<{ detail?: string[] }>;
             Swal.fire({
@@ -53,6 +57,7 @@ function AgendarCita() {
 
     return (
         <Container maxWidth="sm">
+            <Menu />
             <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
                 <Typography variant="h5" gutterBottom>Agendar Cita</Typography>
                 <form onSubmit={handleSubmit}>

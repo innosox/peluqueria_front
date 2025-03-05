@@ -4,6 +4,7 @@ import { api } from "../services/api";
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem, Container, Box, Typography } from "@mui/material";
 import Swal from "sweetalert2";
 import { AxiosError } from "axios";
+import Menu from "./Menu";
 
 function AtencionForm() {
     const { appointmentId, serviceId } = useParams();
@@ -54,6 +55,7 @@ function AtencionForm() {
 
     return (
         <Container maxWidth="sm">
+            <Menu />
             <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
                 <Typography variant="h5" gutterBottom>Registrar Atención</Typography>
                 <form onSubmit={handleSubmit}>
