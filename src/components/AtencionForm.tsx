@@ -57,7 +57,7 @@ function AtencionForm() {
             <Box sx={{ mt: 4, p: 3, boxShadow: 3, borderRadius: 2, backgroundColor: "white" }}>
                 <Typography variant="h5" gutterBottom>Registrar Atención</Typography>
                 <form onSubmit={handleSubmit}>
-                    <input type="text" name="appointment_id" value={formData.appointment_id} />
+                    <input type="hidden" name="appointment_id" value={formData.appointment_id} />
                     <FormControl fullWidth margin="normal">
                         <InputLabel>Servicio</InputLabel>
                         <Select name="service_id" value={formData.service_id} onChange={handleChange}>
