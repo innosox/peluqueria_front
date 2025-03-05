@@ -10,8 +10,8 @@ function AtencionForm() {
     const navigate = useNavigate();
     const [servicios, setServicios] = useState([]);
     const [formData, setFormData] = useState({
-        appointment_id: appointmentId,
-        service_id: serviceId,
+        appointment_id: appointmentId || "",
+        service_id: serviceId || "",
         detail: "",
         price: ""
     });
@@ -23,6 +23,14 @@ function AtencionForm() {
         };
         fetchServicios();
     }, []);
+
+    useEffect(() => {
+        setFormData(prevState => ({
+            ...prevState,
+            appointment_id: appointmentId || "",
+            service_id: serviceId || ""
+        }));
+    }, [appointmentId, serviceId]);
 
     const handleChange = (e: React.ChangeEvent<{ name?: string; value: unknown }>) => {
         setFormData({ ...formData, [e.target.name as string]: e.target.value });
