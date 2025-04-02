@@ -14,9 +14,17 @@ function ClientesCrear() {
        const handleLogin = async (e: React.FormEvent) => {
            e.preventDefault();
            try {
-               const response = await api.post("/clientes", { name, identificacion, email, phone});
-               localStorage.setItem("access_token", response.data.access_token);
-               window.location.href = "/dashboard";
+               await api.post("/clientes", { name, identificacion, email, phone});
+               Swal.fire({
+                    icon: "success",
+                    title: "Cliente registrado",
+                    text: "El cliente ha sido creado correctamente.",
+                });         
+                setName("");
+                setIdentificacion("");
+                setEmail("");
+                setPhone("");
+
            } catch (err: unknown) {
                const error = err as AxiosError<{ detail?: string[] }>;
                Swal.fire({

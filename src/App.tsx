@@ -34,8 +34,6 @@ function App() {
                         <Route path="/citas" element={<PrivateRoute element={<CitasList />} />} />
                         <Route path="/citas/crear" element={<PrivateRoute element={<AgendarCita />} />} />
                         <Route path="/atenciones/:appointmentId/:serviceId" element={<PrivateRoute element={<AtencionForm />} />} />
-
-                        
                     </Routes>
                 </Box>
             </Box>

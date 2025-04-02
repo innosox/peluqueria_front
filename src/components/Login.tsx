@@ -4,17 +4,19 @@ import { api } from "../services/api";
 import Swal from "sweetalert2";
 import { AxiosError } from "axios";
 import { Container, Box, Typography, TextField, Button } from "@mui/material";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
             const response = await api.post("/login", { email, password });
-            localStorage.setItem("access_token", response.data.access_token);
+            login(response.data.access_token);
             navigate("/dashboard");
         } catch (err: unknown) {
             const error = err as AxiosError<{ detail?: string[] }>;
